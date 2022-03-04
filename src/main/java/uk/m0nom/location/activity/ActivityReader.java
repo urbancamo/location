@@ -68,5 +68,5 @@ public abstract class ActivityReader {
         }
     }
 
-    public abstract ActivityDatabase read(InputStream inputStream) throws IOException;
+    public abstract ActivityDatabase read(String activityType, InputStream inputStream) throws IOException;
 }

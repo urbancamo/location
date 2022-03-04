@@ -23,7 +23,7 @@ public class IotaJsonReader extends ActivityReader {
         super(Iota.TYPE, sourceFile);
     }
 
-    public ActivityDatabase read(InputStream inputStream) throws IOException {
+    public ActivityDatabase read(String activityType, InputStream inputStream) throws IOException {
         Map<String, Activity> iotaInfo = new HashMap<>();
 
         try {

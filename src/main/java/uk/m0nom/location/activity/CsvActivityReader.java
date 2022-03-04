@@ -4,7 +4,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.input.BOMInputStream;
 import uk.m0nom.location.activity.sota.Sota;
-import uk.m0nom.location.coords.GlobalCoords3D;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,8 +39,8 @@ public abstract class CsvActivityReader extends ActivityReader {
         return activityMap;
     }
 
-    public ActivityDatabase read(InputStream reader) throws IOException {
-        return new ActivityDatabase(Sota.TYPE, Sota.class, readRecords(reader));
+    public ActivityDatabase read(String activityType, InputStream reader) throws IOException {
+        return new ActivityDatabase(activityType, Sota.class, readRecords(reader));
     }
 
     protected abstract Activity readRecord(CSVRecord record) throws IllegalArgumentException;

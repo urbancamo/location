@@ -28,8 +28,8 @@ public class WotaCsvReader extends CsvActivityReader {
     }
 
     @Override
-    public ActivityDatabase read(InputStream reader) throws IOException {
-        return new WotaSummitsDatabase(Wota.TYPE, readRecords(reader));
+    public ActivityDatabase read(String activityType, InputStream reader) throws IOException {
+        return new WotaSummitsDatabase(activityType, readRecords(reader));
     }
 
     @Override

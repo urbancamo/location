@@ -72,7 +72,7 @@ public class ActivityDatabases {
                     logger.severe(String.format("Can't load %s using classloader %s", reader.getSourceFile(), getClass().getClassLoader().toString()));
                 }
                 //logger.info(String.format("Loading %s data from: %s", reader.getType().getActivityDescription(), reader.getSourceFile()));
-                ActivityDatabase database = reader.read(inputStream);
+                ActivityDatabase database = reader.read(reader.getType(), inputStream);
                 databases.put(reader.getType(), database);
                 //logger.info(String.format("%d %s records loaded", database.size(), reader.getType().getActivityDescription()));
             } catch (IOException e) {

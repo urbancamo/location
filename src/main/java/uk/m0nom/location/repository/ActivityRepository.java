@@ -193,6 +193,6 @@ public class ActivityRepository {
             save((Wwff) info);
         }
         logger.info(String.format("Seeded %d %s records", db.getValues().size(), db.getType()));
-        logger.info("Seeing finished");
+        logger.info("Seeding finished");
     }
 }
