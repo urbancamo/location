@@ -1,0 +1,28 @@
+### Send POST request with json body
+POST http://localhost:8080/api/activity
+Content-Type: application/json
+
+{
+  "type": "SOTA",
+  "ref": "G/LD-050",
+  "name": "Gummer's How",
+  "latitude": 54.288360,
+  "longitude": -2.937910,
+  "altitude": 321.0
+}
+
+### Get an activity
+GET http://localhost:8080/api/activity?type=SOTA&ref=G/LD-050
+
+
+### Delete created activity
+DELETE http://localhost:8080/api/activity?type=SOTA&ref=G/LD-050
+
+### Get an activity
+GET http://localhost:8080/api/activity?type=COTA&ref=9Y-00007
+
+### Get COTA Info
+GET http://localhost:8080/api/activity/cota?ref=G-00528
+
+### Get SOTA Info
+GET http://localhost:8080/api/activity/sota?ref=G/LD-001

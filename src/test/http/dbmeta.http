@@ -1,0 +1,8 @@
+### Delete ActivityInfo Table
+DELETE http://localhost:8080/api/dbmeta/table/activity
+
+### Create ActivityInfo Table
+POST http://localhost:8080/api/dbmeta/table/activity
+
+### Seed the ActivityInfo Table
+GET http://localhost:8080/api/dbmeta/table/activity/seed
