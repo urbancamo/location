@@ -12,8 +12,10 @@ Content-Type: application/json
 }
 
 ### Get an activity
-GET http://localhost:8080/api/activity?type=SOTA&ref=G/LD-050
+GET http://localhost:8080/api/activity/sota?ref=G/LD-050
 
+### Get type of an activity based on the reference
+GET http://localhost:8080/api/activity/type?ref=G/LD-050
 
 ### Delete created activity
 DELETE http://localhost:8080/api/activity?type=SOTA&ref=G/LD-050
@@ -26,3 +28,9 @@ GET http://localhost:8080/api/activity/cota?ref=G-00528
 
 ### Get SOTA Info
 GET http://localhost:8080/api/activity/sota?ref=G/LD-001
+
+### Get IOTA Info
+GET http://localhost:8080/api/activity/iota?ref=AF-001
+
+### Get IOTA Info
+GET http://localhost:8080/api/activity/iota?ref=AF-010

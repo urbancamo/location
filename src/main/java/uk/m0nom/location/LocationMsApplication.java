@@ -10,6 +10,7 @@ import java.util.logging.LogManager;
 
 @SpringBootApplication
 public class LocationMsApplication {
+
 	static {
 		InputStream stream = LocationMsApplication.class.getClassLoader().getResourceAsStream("logging.properties");
 		try {

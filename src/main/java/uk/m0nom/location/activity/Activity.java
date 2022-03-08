@@ -17,6 +17,7 @@ import uk.m0nom.location.coords.GlobalCoords3D;
 @EqualsAndHashCode
 @DynamoDBTable(tableName = "activity")
 public class Activity {
+    public final static String TABLE_NAME = "activity";
 
     @DynamoDBHashKey
     private String type;

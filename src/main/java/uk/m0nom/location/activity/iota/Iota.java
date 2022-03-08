@@ -1,75 +1,64 @@
 package uk.m0nom.location.activity.iota;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedJson;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import uk.m0nom.location.activity.Activity;
 import uk.m0nom.location.coords.GlobalCoords3D;
 import uk.m0nom.location.coords.LocationAccuracy;
 import uk.m0nom.location.coords.LocationSource;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Top of the information hierarchy stored for any Island on the Air reference
  */
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@DynamoDBTable(tableName = "activity")
 public class Iota extends Activity {
     public final static String TYPE = "IOTA";
 
-    private int index;
+    public Iota() {
+        super(Iota.TYPE);
+        subGroups = new ArrayList<>();
+    }
 
-    @JsonProperty("refno")
-    private String refNo;
 
-    @JsonProperty("name")
-    private String iotaName;
-
-    @JsonProperty("dxcc_num")
+    @DynamoDBAttribute
     private String dxccNum;
 
-    @JsonProperty("latitude_max")
-    private double latitudeMax;
+    @DynamoDBAttribute
+    private Double latitudeMax;
 
-    @JsonProperty("latitude_min")
-    private double latitudeMin;
+    @DynamoDBAttribute
+    private Double latitudeMin;
 
-    @JsonProperty("longitude_max")
-    private double longitudeMax;
+    @DynamoDBAttribute
+    private Double longitudeMax;
 
-    @JsonProperty("longitude_min")
-    private double longitudeMin;
+    @DynamoDBAttribute
+    private Double longitudeMin;
 
-    @JsonProperty("grp_region")
+    @DynamoDBAttribute
     private String groupRegion;
 
-    @JsonProperty("whitelist")
-    private int whitelist;
+    @DynamoDBAttribute
+    private Integer whitelist;
 
-    @JsonProperty("pc_credited")
-    private double pcCredited;
+    @DynamoDBAttribute
+    private Double pcCredited;
 
-    @JsonProperty("comment")
+    @DynamoDBAttribute
     private String comment;
 
-    @JsonProperty("sub_groups")
-    private Collection<IotaSubGroup> subGroups;
-
-    public Iota(String type) {
-        super(type);
-    }
-
-    /**
-     * Each IOTA reference could be a group of islands so the location is defined as a latitude/longitude
-     * maximum and minimum. This method calculates a central coordinate in this region
-     * @return Central coordinate of an island (group) max/min lat/long
-     */
-    public GlobalCoords3D getCoordsFromLatLongMaxMin() {
-        double latitudeCentre = latitudeMin + ((latitudeMax - latitudeMin) / 2.0);
-        double longitudeCentre = longitudeMin + ((longitudeMax - longitudeMin) / 2.0);
-        return new GlobalCoords3D(latitudeCentre, longitudeCentre, LocationSource.ACTIVITY, LocationAccuracy.LAT_LONG);
-    }
+    @DynamoDBAttribute
+    @DynamoDBTypeConvertedJson
+    private List<IotaSubGroup> subGroups;
 }

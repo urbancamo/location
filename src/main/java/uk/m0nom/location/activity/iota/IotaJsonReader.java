@@ -24,21 +24,32 @@ public class IotaJsonReader extends ActivityReader {
     }
 
     public ActivityDatabase read(String activityType, InputStream inputStream) throws IOException {
-        Map<String, Activity> iotaInfo = new HashMap<>();
+        Map<String, Activity> iotas = new HashMap<>();
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             IotaResponse response = mapper.readValue(inputStream, IotaResponse.class);
             if ("ok".equals(response.getStatus())) {
                 int i = 0;
-                for (Iota info : response.getContent()) {
-                    info.setType(Iota.TYPE);
-                    info.setRef(info.getRefNo());
-                    info.setName(info.getIotaName());
-                    setCoords(info, info.getCoordsFromLatLongMaxMin());
-                    info.setGrid(MaidenheadLocatorConversion.coordsToLocator(new GlobalCoords3D(info.getLatitude(), info.getLongitude())));
-                    info.setIndex(i-1);
-                    iotaInfo.put(info.getRefNo(), info);
+                for (IotaInfo info : response.getContent()) {
+                    Iota iota = new Iota();
+                    iota.setRef(info.getRefNo());
+                    iota.setName(info.getIotaName());
+                    GlobalCoords3D coords3D = info.getCoordsFromLatLongMaxMin();
+                    iota.setLatitude(coords3D.getLatitude());
+                    iota.setLongitude(coords3D.getLongitude());
+                    iota.setGrid(MaidenheadLocatorConversion.
+                            coordsToLocator(new GlobalCoords3D(iota.getLatitude(), iota.getLongitude())));
+
+                    iota.setLatitudeMax(info.getLatitudeMax());
+                    iota.setLongitudeMax(info.getLongitudeMax());
+                    iota.setGroupRegion(info.getGroupRegion());
+                    iota.setWhitelist(info.getWhitelist());
+                    iota.setPcCredited(info.getPcCredited());
+                    iota.setComment(info.getComment());
+                    iota.setSubGroups(info.getSubGroups());
+
+                    iotas.put(iota.getRef(), iota);
                     i++;
                 }
             }
@@ -46,6 +57,6 @@ public class IotaJsonReader extends ActivityReader {
             logger.severe(String.format("Error reading IOTA JSON data: %s", ex.getMessage()));
         }
 
-        return new ActivityDatabase(Iota.TYPE, Iota.class, iotaInfo);
+        return new ActivityDatabase(Iota.TYPE, Iota.class, iotas);
     }
 }

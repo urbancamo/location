@@ -17,5 +17,5 @@ public class IotaResponse {
     private String status;
 
     @JsonProperty("content")
-    private Collection<Iota> content;
+    private Collection<IotaInfo> content;
 }
